@@ -1,10 +1,16 @@
 $ErrorActionPreference = "Stop"
 
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$python = "E:\anaconda3\envs\ai-job-agent\python.exe"
+$venvPython = Join-Path $projectRoot ".venv\Scripts\python.exe"
 
-if (-not (Test-Path -LiteralPath $python)) {
-    throw "未找到 ai-job-agent 环境中的 Python: $python"
+if (Test-Path -LiteralPath $venvPython) {
+    $python = $venvPython
+} else {
+    $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+    if ($null -eq $pythonCommand) {
+        throw "未找到 Python。请安装 Python 3.11，并创建 .venv 或激活 Conda/venv 环境。"
+    }
+    $python = $pythonCommand.Source
 }
 
 Set-Location -LiteralPath $projectRoot
