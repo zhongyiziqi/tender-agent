@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.test-tmp*/
+pytest-cache-files-*/
+.ruff_cache/
+.env
+data/
+*.db
+*.sqlite3
+frontend/node_modules/
+frontend/dist/
+.doc_review_v11/
